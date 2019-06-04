@@ -1,32 +1,11 @@
-/* img {
-    height: 200px;
-    margin: 10px;
-}
-button {
-    margin: 5px 5px 5px 0px;
 
-}
-.btn-dark {
-    color: rgb(188, 191, 164);
-    background-color: rgb(54, 109, 115);
-    border-color: rgb(1, 46, 64);
-}
-#inputNewChar {
-    width: 100%;
-    background-color: rgb(242, 230, 194);
-    color: rgb(54, 109, 115);
-    border-color: rgb(54, 109, 115);
-}
-body {
-    background-color: rgb(90, 140, 140);
-    color: rgb(1, 46, 64);
-} */
 img {
     height: 200px;
     margin: 10px;
+    border: double;
 }
 button {
-    margin: 5px 5px 5px 0px;
+    margin: 8px 5px 5px 0px;
 
 }
 .btn-danger, .btn-light {
@@ -41,8 +20,14 @@ button {
     border-color: rgb(203, 116, 88);
 }
 body {
-    background-color: rgb(226, 164, 0);
+    
     color: rgb(97, 22, 75);
+    background-image: url("../images/full-bloom.png"); 
+    background-repeat: repeat;
+    background-color: rgb(226, 164, 0);
+    /* background: linear-gradient(to bottom left, rgb(226, 164, 0), rgb(228, 106,0) 90%); */
+    background-blend-mode: multiply;
+    
 }
 figure {
     display: inline-block;
@@ -52,3 +37,6 @@ figcaption {
     
 }
 
+#logo {
+    border: none;
+}

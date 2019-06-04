@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var topics = ["Jean Grey", "Cyclop", "Emma Frost", "Wolverine", "Kitty Pryde", "Psylocke", "Magneto", "Rogue X-Men", "Gambit X-men", "Phoenix X-Men", "Nightcrawler X-Men", "Cable X-Men", "Beast X-Men", "Collosus X-Men", "Storm X-Men", "Jubilee", "Deadpool", "Cable X-Men", "Iceman X-Men"];
+    var topics = ["Jean Grey", "Cyclop", "Emma Frost", "Wolverine", "Kitty Pryde", "Psylocke", "Magneto", "Rogue X-Men", "Gambit X-men", "Phoenix X-Men", "Nightcrawler X-Men", "Cable X-Men", "Beast X-Men", "Storm X-Men", "Jubilee", "Deadpool", "Cable X-Men", "Iceman X-Men"];
 
     for (var i = 0; i < topics.length; i++) {
 
@@ -16,6 +16,7 @@ $(document).ready(function () {
     }
     var e = $("<img>");
     e.attr("src", "assets/images/x-men-logo.png");
+    e.attr("id", "logo");
     $("#addNewButton").append(e);
 
     $("#addNewButton").append("<br>Add Your Favorite X-men");
