@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var topics = ["Jean Grey", "Cyclop X-Men", "Emma Frost", "Wolverine", "Kitty Pryde", "Psylocke", "Magneto", "Rogue X-Men", "Gambit X-men", "Phoenix X-Men", "Nightcrawler X-Men", "Cable X-Men", "Beast X-Men", "Storm X-Men", "Jubilee", "Cable X-Men", "Iceman X-Men"];
+    var topics = ["Jean Grey", "Cyclop X-Men", "Emma Frost", "Wolverine", "Kitty Pryde", "Psylocke", "Magneto", "Rogue X-Men", "Gambit X-men", "Phoenix X-Men", "Nightcrawler X-Men", "Cable X-Men", "Beast X-Men", "Storm X-Men", "Jubilee", "Iceman X-Men"];
 //preloads the page buttons
     for (var i = 0; i < topics.length; i++) {
 
