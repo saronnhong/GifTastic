@@ -9,7 +9,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <title>X-Men Gifs</title>
+    <title>Marvel API Test</title>
 </head>
 
 <body>
@@ -28,7 +28,17 @@
             </div>
         </div>
     </div>
-    <script src="assets/javascript/game.js"></script>
+    <script>
+        var searchWord = "Wolverine";
+        var queryURL = "https://gateway.marvel.com:443/v1/public/characters?name=" + searchWord + "&orderBy=name&limit=10&apikey=153ee09e6b3f5b5f719ab1184a2630d8";
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+        });
+    </script>
 </body>
 
 </html>

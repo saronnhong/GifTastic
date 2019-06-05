@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var topics = ["Jean Grey", "Cyclop", "Emma Frost", "Wolverine", "Kitty Pryde", "Psylocke", "Magneto", "Rogue X-Men", "Gambit X-men", "Phoenix X-Men", "Nightcrawler X-Men", "Cable X-Men", "Beast X-Men", "Storm X-Men", "Jubilee", "Deadpool", "Cable X-Men", "Iceman X-Men"];
+    var topics = ["Jean Grey", "Cyclop X-Men", "Emma Frost", "Wolverine", "Kitty Pryde", "Psylocke", "Magneto", "Rogue X-Men", "Gambit X-men", "Phoenix X-Men", "Nightcrawler X-Men", "Cable X-Men", "Beast X-Men", "Storm X-Men", "Jubilee", "Cable X-Men", "Iceman X-Men"];
 
     for (var i = 0; i < topics.length; i++) {
 
@@ -33,54 +33,64 @@ $(document).ready(function () {
     c.attr("class", "btn btn-light");
     $("#addNewButton").append(c);
 
-    function displayGifs(gifName) {
+    function displayGifs(gifName, numLimit) {
         $("#gifLocation").empty();
-        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=g3neJMyuel6o6FgT28j3YV2RWZJbyZI1&q=" + gifName + "&limit=20& offset=0&rating=R&lang=en";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=g3neJMyuel6o6FgT28j3YV2RWZJbyZI1&q=" + gifName + "&limit=" + numLimit + "& offset=0&rating=R&lang=en";
 
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-           
-            for (var i = 0; i < 20; i++) {
-                //console.log(response);
-                
+
+            for (var i = 0; i < numLimit; i++) {
                 var g = $("<figure>");
                 var p = $("<figcaption>").text("Rating: " + response.data[i].rating.toUpperCase());
                 var f = $("<img>");
                 f.attr("class", "gif");
-                f.attr("src", response.data[i].images.original_still.url);
-                f.attr("data-state", "still");
+                f.attr("src", response.data[i].images.original.url);    //edit to change to start with still
+                f.attr("data-state", "animate");                        //edit to change to start with still
                 f.attr("data-animate", response.data[i].images.original.url);
                 f.attr("data-still", response.data[i].images.original_still.url);
                 f.attr("rating", response.data[i].rating);
                 g.append(f);
                 g.append(p);
-                $("#gifLocation").append(g);
-               
+                $("#gifLocation").prepend(g);
+                oldId = gifName;
             }
         });
 
     }
-    displayGifs("X-Men");
-
+    displayGifs("X-Men Cosplay", 10);
+    
+    var sameButtonCount = 1;
+    var oldId;
     $(document).on("click", ".btn-danger", function () {
-        displayGifs(this.id);
+        if (oldId === this.id){
+            sameButtonCount++;
+        }
+        else {
+            sameButtonCount = 1;
+        }
+        if (sameButtonCount === 1) {
+            displayGifs(this.id, 10);
+            
+        }
+        else if ((sameButtonCount > 1) && (this.id === oldId)){
+            displayGifs(this.id, (10 * sameButtonCount));
+        }      
     });
 
     $("#submitButton").on("click", function () {
         var newButtonName = $("#inputNewChar").val();
-
         var d = $("<button>");
         d.attr("id", newButtonName);
         d.attr("class", "btn btn-danger");
         d.attr("data-name", "xmenListButton");
         d.text(newButtonName);
         $("#gifButtons").append(d);
-
     });
-    $(document).on("click", ".gif", function () {
 
+    $(document).on("click", ".gif", function () {
         var state = $(this).attr("data-state");
         var animate = $(this).attr("data-animate");
         var stopAnimate = $(this).attr("data-still");
@@ -88,12 +98,10 @@ $(document).ready(function () {
         if (state === "still") {
             $(this).attr("src", animate);
             $(this).attr("data-state", "animate");
-            
-          }
-          else if (state === "animate") {
+        }
+        else if (state === "animate") {
             $(this).attr("src", stopAnimate);
             $(this).attr("data-state", "still");
-            
-          }
+        }
     });
 });

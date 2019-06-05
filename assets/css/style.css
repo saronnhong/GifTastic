@@ -6,7 +6,6 @@ img {
 }
 button {
     margin: 8px 5px 5px 0px;
-
 }
 .btn-danger, .btn-light {
     color: rgb(232, 181, 112);
@@ -42,4 +41,15 @@ figcaption {
 
 #logo {
     border: none;
+}
+@media screen and (max-width: 640px) {
+    img {
+        width: 93%;
+        height: auto;
+        /* margin: 10px;
+        border: double; */
+    }
+    button {
+        margin: 1px;
+    }
 }
