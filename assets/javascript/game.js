@@ -1,38 +1,39 @@
 $(document).ready(function () {
     var topics = ["Jean Grey", "Cyclop X-Men", "Emma Frost", "Wolverine", "Kitty Pryde", "Psylocke", "Magneto", "Rogue X-Men", "Gambit X-men", "Phoenix X-Men", "Nightcrawler X-Men", "Cable X-Men", "Beast X-Men", "Storm X-Men", "Jubilee", "Cable X-Men", "Iceman X-Men"];
-
+//preloads the page buttons
     for (var i = 0; i < topics.length; i++) {
 
         var topicName = topics[i];
 
-        var a = $("<button>");
+        var buttonInsert = $("<button>");
 
-        a.attr("id", topics[i]);
-        a.attr("class", "btn btn-danger");
-        a.attr("data-name", "xmenListButton");
-        a.attr("data-state", "still");
-        a.text(topics[i]);
-        $("#gifButtons").append(a);
+        buttonInsert.attr("id", topics[i]);
+        buttonInsert.attr("class", "btn btn-danger");
+        buttonInsert.attr("data-name", "xmenListButton");
+        buttonInsert.attr("data-state", "animate");
+        buttonInsert.text(topics[i]);
+        $("#gifButtons").append(buttonInsert);
     }
-    var e = $("<img>");
-    e.attr("src", "assets/images/x-men-logo.png");
-    e.attr("id", "logo");
-    $("#addNewButton").append(e);
+    //creates textbox and submit button
+    var logoInsert = $("<img>");
+    logoInsert.attr("src", "assets/images/x-men-logo.png");
+    logoInsert.attr("id", "logo");
+    $("#addNewButton").append(logoInsert);
 
     $("#addNewButton").append("<br>Add Your Favorite X-men");
 
-    var b = $("<input>");
-    b.attr("type", "text");
-    b.attr("id", "inputNewChar");
-    b.attr("class", "form-control");
-    $("#addNewButton").append(b);
+    var textBoxInsert = $("<input>");
+    textBoxInsert.attr("type", "text");
+    textBoxInsert.attr("id", "inputNewChar");
+    textBoxInsert.attr("class", "form-control");
+    $("#addNewButton").append(textBoxInsert);
 
-    var c = $("<button>");
-    c.text("Submit");
-    c.attr("id", "submitButton");
-    c.attr("class", "btn btn-light");
-    $("#addNewButton").append(c);
-
+    var submitButtonInsert = $("<button>");
+    submitButtonInsert.text("Submit");
+    submitButtonInsert.attr("id", "submitButton");
+    submitButtonInsert.attr("class", "btn btn-light");
+    $("#addNewButton").append(submitButtonInsert);
+//ajax request to giphy api and fills page with gifs
     function displayGifs(gifName, numLimit) {
         $("#gifLocation").empty();
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=g3neJMyuel6o6FgT28j3YV2RWZJbyZI1&q=" + gifName + "&limit=" + numLimit + "& offset=0&rating=R&lang=en";
@@ -43,25 +44,25 @@ $(document).ready(function () {
         }).then(function (response) {
 
             for (var i = 0; i < numLimit; i++) {
-                var g = $("<figure>");
-                var p = $("<figcaption>").text("Rating: " + response.data[i].rating.toUpperCase());
-                var f = $("<img>");
-                f.attr("class", "gif");
-                f.attr("src", response.data[i].images.original.url);    //edit to change to start with still
-                f.attr("data-state", "animate");                        //edit to change to start with still
-                f.attr("data-animate", response.data[i].images.original.url);
-                f.attr("data-still", response.data[i].images.original_still.url);
-                f.attr("rating", response.data[i].rating);
-                g.append(f);
-                g.append(p);
-                $("#gifLocation").prepend(g);
+                var figInsert = $("<figure>");
+                var textRatingInsert = $("<figcaption>").text("Rating: " + response.data[i].rating.toUpperCase());
+                var imageInsert = $("<img>");
+                imageInsert.attr("class", "gif");
+                imageInsert.attr("src", response.data[i].images.original.url);    //edit to change to start with still
+                imageInsert.attr("data-state", "animate");                        //edit to change to start with still
+                imageInsert.attr("data-animate", response.data[i].images.original.url);
+                imageInsert.attr("data-still", response.data[i].images.original_still.url);
+                imageInsert.attr("rating", response.data[i].rating);
+                figInsert.append(imageInsert);
+                figInsert.append(textRatingInsert);
+                $("#gifLocation").prepend(figInsert);
                 oldId = gifName;
             }
         });
 
     }
     displayGifs("X-Men Cosplay", 10);
-    
+//adds more gif to the page if same button is selected    
     var sameButtonCount = 1;
     var oldId;
     $(document).on("click", ".btn-danger", function () {
@@ -79,18 +80,18 @@ $(document).ready(function () {
             displayGifs(this.id, (10 * sameButtonCount));
         }      
     });
-
+//creates new searchable content button to the top of the page
     $("#submitButton").on("click", function () {
         var newButtonName = $("#inputNewChar").val();
-        var d = $("<button>");
-        d.attr("id", newButtonName);
-        d.attr("class", "btn btn-danger");
-        d.attr("data-name", "xmenListButton");
-        d.text(newButtonName);
-        $("#gifButtons").append(d);
+        var newButtonInsert = $("<button>");
+        newButtonInsert.attr("id", newButtonName);
+        newButtonInsert.attr("class", "btn btn-danger");
+        newButtonInsert.attr("data-name", "xmenListButton");
+        newButtonInsert.text(newButtonName);
+        $("#gifButtons").append(newButtonInsert);
     });
-
-    $(document).on("click", ".gif", function () {
+//controls the pause/play of the gif
+    $(document).on("click", ".gif", function () {           
         var state = $(this).attr("data-state");
         var animate = $(this).attr("data-animate");
         var stopAnimate = $(this).attr("data-still");
