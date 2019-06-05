@@ -54,7 +54,7 @@ figcaption {
     body {
     
         color: rgb(97, 22, 75);
-        /* background-image: url("../images/full-bloom.png");  */
+        background-image: url(" "); 
         background-repeat: repeat;
         background-color: rgb(236, 203, 101);
         /* background-blend-mode: multiply; */
