@@ -3,7 +3,7 @@ $(document).ready(function () {
 //preloads the page buttons
     for (var i = 0; i < topics.length; i++) {
 
-        var topicName = topics[i];
+        //var topicName = topics[i];
 
         var buttonInsert = $("<button>");
 
@@ -36,7 +36,7 @@ $(document).ready(function () {
 //ajax request to giphy api and fills page with gifs
     function displayGifs(gifName, numLimit) {
         $("#gifLocation").empty();
-        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=g3neJMyuel6o6FgT28j3YV2RWZJbyZI1&q=" + gifName + "&limit=" + numLimit + "& offset=0&rating=R&lang=en";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=g3neJMyuel6o6FgT28j3YV2RWZJbyZI1&q=" + gifName + "&limit=10& offset="+ numLimit + "&rating=R&lang=en";
 
         $.ajax({
             url: queryURL,
@@ -62,6 +62,33 @@ $(document).ready(function () {
 
     }
     displayGifs("X-Men Cosplay", 10);
+    function appendGifs(gifName, numLimit) {
+        //$("#gifLocation").empty();
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=g3neJMyuel6o6FgT28j3YV2RWZJbyZI1&q=" + gifName + "&limit=10& offset="+ numLimit + "&rating=R&lang=en";
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+
+            for (var i = 0; i < numLimit; i++) {
+                var figInsert = $("<figure>");
+                var textRatingInsert = $("<figcaption>").text("Rating: " + response.data[i].rating.toUpperCase());
+                var imageInsert = $("<img>");
+                imageInsert.attr("class", "gif");
+                imageInsert.attr("src", response.data[i].images.original.url);    //edit to change to start with still
+                imageInsert.attr("data-state", "animate");                        //edit to change to start with still
+                imageInsert.attr("data-animate", response.data[i].images.original.url);
+                imageInsert.attr("data-still", response.data[i].images.original_still.url);
+                imageInsert.attr("rating", response.data[i].rating);
+                figInsert.append(imageInsert);
+                figInsert.append(textRatingInsert);
+                $("#gifLocation").prepend(figInsert);
+                oldId = gifName;
+            }
+        });
+
+    }
 //adds more gif to the page if same button is selected    
     var sameButtonCount = 1;
     var oldId;
@@ -77,7 +104,7 @@ $(document).ready(function () {
             
         }
         else if ((sameButtonCount > 1) && (this.id === oldId)){
-            displayGifs(this.id, (10 * sameButtonCount));
+            appendGifs(this.id, (10 * sameButtonCount));
         }      
     });
 //creates new searchable content button to the top of the page
