@@ -61,7 +61,7 @@ $(document).ready(function () {
         });
 
     }
-    displayGifs("X-Men Cosplay", 10);
+    displayGifs("X-Men", 10);
     function appendGifs(gifName, numLimit) {
         //$("#gifLocation").empty();
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=g3neJMyuel6o6FgT28j3YV2RWZJbyZI1&q=" + gifName + "&limit=10& offset="+ numLimit + "&rating=R&lang=en";
